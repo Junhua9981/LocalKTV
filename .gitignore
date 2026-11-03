@@ -1,0 +1,42 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Node / Web
+node_modules/
+web/dist/
+.vite/
+
+# Scratch space (live diagnostics, throwaway caches)
+temp/
+
+# Runtime data (media cache, sqlite, logs)
+data/*
+!data/.gitkeep
+!data/lyrics/
+data/lyrics/*
+!data/lyrics/README.md
+!data/lyrics/*.lrc
+!data/lyrics/*.qrc
+!data/lyrics/*.yrc
+!data/lyrics/*.txt
+models/*
+!models/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment secrets
+.env
+.env.*
+!.env.example
+deploy/*.env
+!deploy/*.env.example
+
+# 音源外掛（另行取得，放到這裡；本 repo 不收）
+server/plugins/*
+!server/plugins/README.md

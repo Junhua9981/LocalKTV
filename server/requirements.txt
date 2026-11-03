@@ -1,0 +1,10 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+qrcode>=7.4
+yt-dlp>=2024.10.22
+aiofiles>=24.1
+pycryptodome>=3.20  # tests only: cross-validate ktv.qrc_des (BSD licence)
+# 日文歌詞的假名注音（ktv/furigana.py；Apache-2.0）。沒裝也能跑，只是只有歌詞自帶的讀音。
+# 字典裝好約 190MB，執行時 mmap 載入、常駐約 100MB。
+sudachipy>=0.6
+sudachidict_core>=20240109

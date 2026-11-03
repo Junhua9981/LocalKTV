@@ -1,0 +1,5 @@
+# Optional: AI vocal separation (ktv/separate.py). Without these the server
+# runs as before and uses realtime vocal removal (INSTANT).
+onnxruntime>=1.17   # MIT; pulls in numpy
+# One-off model setup only (server/fetch_model.py), not needed at runtime:
+# onnx>=1.15

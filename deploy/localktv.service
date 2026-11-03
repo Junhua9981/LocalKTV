@@ -1,0 +1,36 @@
+[Unit]
+Description=LocalKTV
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=localktv
+Group=localktv
+WorkingDirectory=/opt/localktv
+EnvironmentFile=/etc/localktv.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=HOME=/var/lib/localktv
+# Bind explicitly; an accidental environment change cannot expose the backend.
+ExecStart=/opt/localktv/.venv/bin/python /opt/localktv/server/main.py --host 127.0.0.1 --port 8080 --no-browser
+# Always come back (also after a clean exit), and be the last thing the
+# kernel's OOM killer picks on a 1 GB VPS.
+Restart=always
+RestartSec=5
+OOMScoreAdjust=-500
+# The AI separator child (ktv/separate.py) volunteers for the OOM killer;
+# losing it must not take the whole service down with it.
+OOMPolicy=continue
+StateDirectory=localktv
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/localktv /opt/localktv/models
+
+[Install]
+WantedBy=multi-user.target

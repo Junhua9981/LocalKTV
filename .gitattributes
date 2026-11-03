@@ -1,0 +1,2 @@
+# .sh 必須保持 LF — CRLF 會讓 shebang 在 Linux 上失效
+*.sh text eol=lf

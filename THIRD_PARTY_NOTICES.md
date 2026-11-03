@@ -40,6 +40,15 @@ dependency, under its own licence.
 | vite, @vitejs/plugin-vue, vue-tsc, @types/node | MIT |
 | typescript | Apache-2.0 |
 
+## Promo video
+
+| Material | Licence |
+| --- | --- |
+| Soundtrack of the README promo video: "Let's Go Fishin'" by Karissa Hobbs, from Free Music Archive | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) |
+
+The footage is screen recordings of LocalKTV itself. The 熱門榜 (charts)
+scene shows a feature that needs a music-source plug-in.
+
 ## Downloaded at setup, not bundled
 
 - The vocal-separation model (`UVR_MDXNET_KARA_2`) is fetched by
@@ -49,7 +58,8 @@ dependency, under its own licence.
 
 ## Not part of this project
 
-This repository ships no music, lyrics, music videos or cover art. Songs,
+Apart from the promo video's soundtrack (below), this repository ships no
+music, lyrics, music videos or cover art. Songs,
 lyrics and videos are fetched at run time from sources the user configures,
 and the user is responsible for having the right to use them. Music-source
 plug-ins (`server/plugins/`) are not part of this repository.

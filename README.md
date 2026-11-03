@@ -1,6 +1,28 @@
 # LocalKTV
 
-Single-room, local-first Web KTV。一台 PC 同時負責 HTTP/WebSocket、Queue、歌曲取得、歌詞解析、AI 去人聲與快取；真正的音樂與歌詞由 PC 上的 `/display` Web App 播放，其他手機只作為 Host Remote 或點歌 Client。**AI 永遠是 enhancement，Instant DSP 永遠是 fallback。**
+在家自架的 KTV：一台電腦（或一台小 VPS）當伺服器，電視開瀏覽器就是點歌機螢幕，大家用手機掃 QR 點歌。
+不用裝 App、不用買點歌機，也不用訂閱。
+
+https://github.com/user-attachments/assets/124e3bd4-92db-4489-bb61-aba8cf4bda0f
+
+<sub>配樂："Let's Go Fishin'" by Karissa Hobbs（Free Music Archive），[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)。熱門榜需要音源外掛。</sub>
+
+## 為什麼用 LocalKTV
+
+- **手機就是遙控器**：掃電視上的 QR 加入，搜尋、點歌、插歌、切歌、調音量和升降 Key 都在手機上；誰點的歌、下一首還要等幾首一目了然。
+- **想唱的歌幾乎都有**：沒有固定曲庫，點歌時才下載原曲；已下載的歌放在本機快取，下次立刻能唱，斷網也能唱。
+- **原曲也能變伴唱**：AI 人聲分離（UVR MDX-Net）把原曲拆成伴奏與人聲，導唱大小可以 0–100% 隨時調；AI 還沒做完時先用即時消人聲頂上，不用等。
+- **像 KTV 一樣的逐字歌詞**：逐字掃色、開唱前四拍倒數、對唱依聲部上色，簡體歌詞自動轉台灣繁體，日文歌詞加上假名注音。
+- **唱歌評分**：用電腦接的麥克風即時比對音高，每句判定 PERFECT／GREAT／GOOD，唱完給分數與本曲排行。
+- **電視畫面有變化**：可以放原版 MV 當背景，或用逐字動態歌詞的「文字PV」。
+- **手機當麥克風**（原型）：WebRTC 直連電視，不經過伺服器。
+- **多間包廂**：一台伺服器同時開好幾間房，各自有點歌清單和電視；歌曲快取共用，同一首歌只下載一次。
+- **可以放上雲端給朋友用**：附 Ubuntu VPS 的 HTTPS 部署範本與登入保護（管理員密碼、電視配對、客人限時邀請 QR）；1 GB 記憶體的小主機也跑得動。
+- **音源可以擴充**：內建 YouTube，也可以自己寫外掛接其他曲庫、熱門榜與封面（見 [server/plugins/README.md](server/plugins/README.md)）。
+
+## 運作方式
+
+一台 PC 同時負責 HTTP/WebSocket、點歌清單、歌曲取得、歌詞解析、AI 去人聲與快取；真正的音樂與歌詞由電視上的 `/display` 網頁播放，其他手機只當主控（`/host`）或點歌遙控器（`/remote`）。**AI 永遠是加分項，即時消人聲永遠是備案。**
 
 規格：見 [SPEC.md](./SPEC.md)。
 
@@ -246,5 +268,6 @@ Multi-room、User accounts、Cloud sync、Redis、PostgreSQL、Native app、Temp
 ## 授權與聲明
 
 - 本專案程式碼以 [Apache License 2.0](LICENSE) 授權（另見 [`NOTICE`](NOTICE)）。內附的第三方素材（OpenCC 字典、Noto Sans TC/JP 與 Chakra Petch 字型等）維持各自的原授權，清單見 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
-- **本專案不附帶任何音樂、歌詞、MV 或封面。** 歌曲與歌詞都是執行時從使用者自行設定的來源取得，使用者須自行確認有權使用這些內容；授權只涵蓋本專案的程式碼，不涵蓋任何歌曲的版權。
+- **除了宣傳片的配樂以外，本專案不附帶任何音樂、歌詞、MV 或封面。** 歌曲與歌詞都是執行時從使用者自行設定的來源取得，使用者須自行確認有權使用這些內容；授權只涵蓋本專案的程式碼，不涵蓋任何歌曲的版權。
+- 宣傳片配樂："Let's Go Fishin'" by Karissa Hobbs，取自 Free Music Archive，以 [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) 授權。畫面是 LocalKTV 的實際錄影；其中的熱門榜要裝音源外掛才有。
 - 音源外掛（`server/plugins/`）不屬於本 repo，也不以本授權發布。
